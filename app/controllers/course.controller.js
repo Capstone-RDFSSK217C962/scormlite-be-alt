@@ -29,7 +29,7 @@ exports.create = (req, res) => {
 		});
 };
 
-exports.findAll = (req, res) => {
+exports.findByTitle = (req, res) => {
 	const title = req.query.title;
 	const user = req.userId;
 
@@ -48,12 +48,27 @@ exports.findAll = (req, res) => {
 		});
 };
 
+exports.findAll = (req, res) => {
+	const user = req.userId;
+
+	Course.find({ author: user })
+		.then((data) => {
+
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: err.message || 'error retrieving courses',
+			});
+		});
+};
+
 exports.findOne = (req, res) => {
 	const id = req.params.id;
 
 	Course.findById(id)
 		.then((data) => {
-			if (!data || data.author === req.userId)
+			if (!data || data.author !== req.userId)
 				res.status(404).send({ message: `course with id ${id} not found` });
 			else res.send(data);
 		})
