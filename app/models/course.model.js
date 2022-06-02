@@ -1,4 +1,40 @@
 module.exports = (mongoose) => {
+
+	const TextSchema = mongoose.Schema({
+		title: String,
+		content: String,
+	});
+
+	const ReferenceSchema = mongoose.Schema({
+		content: String,
+	});
+	  
+	const VideoSchema = mongoose.Schema({
+		title: String,
+		url: String
+	});
+	  
+	const QuizSchema = mongoose.Schema({
+		title: String,
+		question: String,
+		answer_option: Array,
+		answer: String,
+		message: String,
+	});
+
+	const ComponentSchema = mongoose.Schema({
+		type: String,
+		text: TextSchema,
+		reference: ReferenceSchema,
+		video: VideoSchema,
+		quiz: QuizSchema,
+	});
+	  
+	const ModuleSchema = mongoose.Schema({
+		title: String,
+		component: ComponentSchema
+	});
+
 	var schema = mongoose.Schema(
 		{
 			author: String,
@@ -8,6 +44,7 @@ module.exports = (mongoose) => {
 			code: String,
 			package_url: String,
 			published: Boolean,
+			module: ModuleSchema
 		},
 		{ timestamps: true }
 	);

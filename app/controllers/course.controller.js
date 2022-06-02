@@ -15,6 +15,28 @@ exports.create = (req, res) => {
 		code: req.body.code,
 		package_url: req.body.package_url,
 		published: req.body.published ? req.body.published : false,
+		module: {
+			component: {
+				text: {
+					title: '',
+					content: ''
+				},
+				quiz: {
+					title: '',
+					question: '',
+					answer_option: '',
+					answer: '',
+					message: '',
+				},
+				reference: {
+					content: '',
+				},
+				video: {
+					title: '',
+					url: ''
+				}
+			}
+		}
 	});
 
 	course
