@@ -44,7 +44,7 @@ module.exports = (mongoose) => {
 			code: String,
 			package_url: String,
 			published: Boolean,
-			module: ModuleSchema
+			module: {}
 		},
 		{ timestamps: true }
 	);

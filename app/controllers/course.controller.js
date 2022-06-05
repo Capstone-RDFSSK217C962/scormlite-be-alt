@@ -15,28 +15,29 @@ exports.create = (req, res) => {
 		code: req.body.code,
 		package_url: req.body.package_url,
 		published: req.body.published ? req.body.published : false,
-		module: {
-			component: {
-				text: {
-					title: '',
-					content: ''
-				},
-				quiz: {
-					title: '',
-					question: '',
-					answer_option: '',
-					answer: '',
-					message: '',
-				},
-				reference: {
-					content: '',
-				},
-				video: {
-					title: '',
-					url: ''
-				}
-			}
-		}
+		module: {} 
+		// {
+		// 	component: {
+		// 		text: {
+		// 			title: '',
+		// 			content: ''
+		// 		},
+		// 		quiz: {
+		// 			title: '',
+		// 			question: '',
+		// 			answer_option: '',
+		// 			answer: '',
+		// 			message: '',
+		// 		},
+		// 		reference: {
+		// 			content: '',
+		// 		},
+		// 		video: {
+		// 			title: '',
+		// 			url: ''
+		// 		}
+		// 	}
+		// }
 	});
 
 	course
@@ -120,10 +121,59 @@ exports.update = (req, res) => {
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: `error updating course with id ${id}`,
 			});
 		});
 };
+
+// exports.updateModule = (req, res) => {
+// 	if (!req.body) {
+// 		return res.status(400).send({
+// 			message: 'data to update cannot be empty',
+// 		});
+// 	}
+
+// 	const id = req.params.id;
+
+// 	Course.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+// 		.then((data) => {
+// 			if (!data) {
+// 				res.status(404).send({
+// 					message: `cannot update course with id ${id}, maybe course is not found`,
+// 				});
+// 			} else res.send({ message: 'course successfully updated' });
+// 		})
+// 		.catch((err) => {
+// 			res.status(500).send({
+// 				message: `error updating course with id ${id}`,
+// 			});
+// 		});
+// };
+
+// exports.updateComponent = (req, res) => {
+// 	if (!req.body) {
+// 		return res.status(400).send({
+// 			message: 'data to update cannot be empty',
+// 		});
+// 	}
+
+// 	const id = req.params.id;
+
+// 	Course.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+// 		.then((data) => {
+// 			if (!data) {
+// 				res.status(404).send({
+// 					message: `cannot update course with id ${id}, maybe course is not found`,
+// 				});
+// 			} else res.send({ message: 'course successfully updated' });
+// 		})
+// 		.catch((err) => {
+// 			res.status(500).send({
+// 				message: `error updating course with id ${id}`,
+// 			});
+// 		});
+// };
 
 exports.delete = (req, res) => {
 	const id = req.params.id;
