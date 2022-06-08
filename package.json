@@ -1,7 +1,7 @@
 {
-  "name": "node-js-jwt-auth-mongodb",
+  "name": "scormlite-be",
   "version": "1.0.0",
-  "description": "Node.js + MongoDB: JWT Authentication & Authorization",
+  "description": "Backend service for Scorm Lite",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
