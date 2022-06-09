@@ -13,7 +13,7 @@
     "authentication",
     "mongodb"
   ],
-  "author": "bezkoder",
+  "author": "Scorm Lite Capstone Team",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
