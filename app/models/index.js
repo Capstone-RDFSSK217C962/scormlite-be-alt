@@ -8,9 +8,8 @@ db.mongoose = mongoose;
 db.user = require('./user.model');
 db.role = require('./role.model');
 db.courses = require('./course.model.js')(mongoose);
+db.refreshToken = require("./refreshToken.model");
 
 db.ROLES = ['user', 'admin', 'instructor'];
 
 module.exports = db;
-
-const dbConfig = require('../config/db.config.js');
