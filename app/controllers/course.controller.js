@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 		code: req.body.code,
 		package_url: req.body.package_url,
 		published: req.body.published ? req.body.published : false,
-		module: {} 
+		module: {},
 		// {
 		// 	component: {
 		// 		text: {
@@ -43,10 +43,11 @@ exports.create = (req, res) => {
 	course
 		.save(course)
 		.then((data) => {
-			res.send(data);
+			res.status(200).send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: err.message || 'error creating course',
 			});
 		});
@@ -62,10 +63,11 @@ exports.findByTitle = (req, res) => {
 
 	Course.find(condition)
 		.then((data) => {
-			res.send(data);
+			res.status(200).send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: err.message || 'error retrieving courses',
 			});
 		});
@@ -76,11 +78,11 @@ exports.findAll = (req, res) => {
 
 	Course.find({ author: user })
 		.then((data) => {
-
-			res.send(data);
+			res.status(200).send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: err.message || 'error retrieving courses',
 			});
 		});
@@ -93,20 +95,18 @@ exports.findOne = (req, res) => {
 		.then((data) => {
 			if (!data || data.author !== req.userId)
 				res.status(404).send({ message: `course with id ${id} not found` });
-			else res.send(data);
+			else res.status(200).send(data);
 		})
 		.catch((err) => {
 			res
 				.status(500)
-				.send({ message: `error retrieving course with id ${id}` });
+				.send({ error: err, message: `error retrieving course with id ${id}` });
 		});
 };
 
 exports.update = (req, res) => {
 	if (!req.body) {
-		return res.status(400).send({
-			message: 'data to update cannot be empty',
-		});
+		return res.status(400).send({ message: 'data to update cannot be empty' });
 	}
 
 	const id = req.params.id;
@@ -117,7 +117,7 @@ exports.update = (req, res) => {
 				res.status(404).send({
 					message: `cannot update course with id ${id}, maybe course is not found`,
 				});
-			} else res.send({ message: 'course successfully updated' });
+			} else res.status(200).send({ message: 'course successfully updated' });
 		})
 		.catch((err) => {
 			res.status(500).send({
@@ -185,13 +185,14 @@ exports.delete = (req, res) => {
 					message: `cannot delete course with id ${id}, maybe course is not found`,
 				});
 			} else {
-				res.send({
+				res.status(200).send({
 					message: 'course successfully deleted',
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: `cannot delete course with ${id}`,
 			});
 		});
@@ -202,12 +203,13 @@ exports.deleteAll = (req, res) => {
 
 	Course.deleteMany({ author: user })
 		.then((data) => {
-			res.send({
+			res.status(200).send({
 				message: `${data.deletedCount} course(s) successfully deleted`,
 			});
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: err.message || 'error deleting all courses',
 			});
 		});
@@ -218,10 +220,11 @@ exports.findAllPublished = (req, res) => {
 
 	Course.find({ published: true, author: user })
 		.then((data) => {
-			res.send(data);
+			res.status(200).send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
+				error: err,
 				message: err.message || 'error retrieving published courses',
 			});
 		});
