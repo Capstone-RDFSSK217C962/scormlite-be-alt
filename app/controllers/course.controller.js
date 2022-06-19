@@ -84,8 +84,8 @@ exports.findAll = (req, res) => {
 			res.status(500).send({
 				error: err,
 				message: err.message || 'error retrieving courses',
-			});
 		});
+	});
 };
 
 exports.findOne = (req, res) => {
@@ -93,14 +93,16 @@ exports.findOne = (req, res) => {
 
 	Course.findById(id)
 		.then((data) => {
-			if (!data || data.author !== req.userId)
-				res.status(404).send({ message: `course with id ${id} not found` });
+			if (!data || (data.author !== req.userId))
+				res.status(404).send({ message: 'course not found' });
 			else res.status(200).send(data);
 		})
 		.catch((err) => {
 			res
 				.status(500)
-				.send({ error: err, message: `error retrieving course with id ${id}` });
+				.send({ 
+					error: err, 
+					message: err.message || 'error retrieving course'});
 		});
 };
 
@@ -115,14 +117,14 @@ exports.update = (req, res) => {
 		.then((data) => {
 			if (!data) {
 				res.status(404).send({
-					message: `cannot update course with id ${id}, maybe course is not found`,
+					message: 'course not found, cannot update course',
 				});
 			} else res.status(200).send({ message: 'course successfully updated' });
 		})
 		.catch((err) => {
 			res.status(500).send({
 				error: err,
-				message: `error updating course with id ${id}`,
+				message: err.message || 'error updating course',
 			});
 		});
 };
@@ -182,7 +184,7 @@ exports.delete = (req, res) => {
 		.then((data) => {
 			if (!data) {
 				res.status(404).send({
-					message: `cannot delete course with id ${id}, maybe course is not found`,
+					message: 'course not found, cannot delete course',
 				});
 			} else {
 				res.status(200).send({
@@ -193,7 +195,7 @@ exports.delete = (req, res) => {
 		.catch((err) => {
 			res.status(500).send({
 				error: err,
-				message: `cannot delete course with ${id}`,
+				message: err.message || 'error deleting course',
 			});
 		});
 };
