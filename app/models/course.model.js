@@ -46,7 +46,7 @@ module.exports = (mongoose) => {
 			published: Boolean,
 			module: {}
 		},
-		{ timestamps: true }
+		{ timestamps: true, minimize: false }
 	);
 
 	schema.method('toJSON', function () {
