@@ -5,7 +5,7 @@ const dbConfig = require('./app/config/db.config');
 const app = express();
 
 var corsOptions = {
-	origin: 'http://localhost:8080',
+	origin: 'http://localhost:8080' || 'https://scormlite-fe.herokuapp.com',
 };
 
 app.use(cors(corsOptions));
