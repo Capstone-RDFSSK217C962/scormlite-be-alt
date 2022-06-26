@@ -61,7 +61,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({ storage: storage });
 
-app.post('/delete', function (req, res, next) {
+app.post('/api/delete', function (req, res, next) {
 	let fileId = req.body.id;
 	try {
 		fs.unlink(PATH + fileId, function (err) {
@@ -76,7 +76,7 @@ app.post('/delete', function (req, res, next) {
 	}
 });
 
-app.post('/upload', upload.single('file'), function (req, res, next) {
+app.post('/api/upload', upload.single('file'), function (req, res, next) {
 	let name = req.file.originalname || req.file.filename;
 	let url = req.protocol + '://' + req.headers.host + '/' + req.file.filename;
 	let mimetype =
