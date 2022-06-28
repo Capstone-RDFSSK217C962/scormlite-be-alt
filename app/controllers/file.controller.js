@@ -21,7 +21,7 @@ exports.deleteFile = (req, res, next) => {
 
 exports.uploadFile =  (req, res, next) => {
 	let name = req.file.originalname || req.file.filename;
-	let url = req.protocol + '://' + req.headers.host + '/' + req.file.filename;
+	let url = req.protocol + 's://' + req.headers.host + '/' + req.file.filename;
 	let mimetype =
 		req.file.mimetype && req.file.mimetype !== ''
 			? req.file.mimetype
