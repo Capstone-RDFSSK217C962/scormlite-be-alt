@@ -1,12 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const dbConfig = require('./app/config/db.config');
-let multer = require('multer');
-var PATH = 'files/';
-let path = require('path');
-var crypto = require('crypto');
-let fs = require('fs');
-
 const app = express();
 
 var corsOptions = {
@@ -43,56 +37,11 @@ db.mongoose
 		process.exit();
 	});
 
-// file handler
-let storage = multer.diskStorage({
-	destination: function (req, data, func) {
-		func(null, PATH);
-	},
-	filename: function (req, file, cb) {
-		crypto.randomBytes(16, function (err, raw) {
-			if (err) {
-				return cb(err);
-			}
-
-			cb(null, raw.toString('hex') + path.extname(file.originalname));
-		});
-	},
-});
-
-let upload = multer({ storage: storage });
-
-app.post('/api/delete', function (req, res, next) {
-	let fileId = req.body.id;
-	try {
-		fs.unlink(PATH + fileId, function (err) {
-			if (err) {
-				res.status(404).end();
-				return console.log(err);
-			}
-			res.status(200).end();
-		});
-	} catch (e) {
-		res.status(404).end();
-	}
-});
-
-app.post('/api/upload', upload.single('file'), function (req, res, next) {
-	let name = req.file.originalname || req.file.filename;
-	let url = req.protocol + '://' + req.headers.host + '/' + req.file.filename;
-	let mimetype =
-		req.file.mimetype && req.file.mimetype !== ''
-			? req.file.mimetype
-			: path.extname(req.file.originalname);
-	if (req.file && req.file.filename) {
-		res.send(JSON.stringify({ name, url, mimetype }));
-	}
-	res.status(500);
-});
-
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/course.routes')(app);
+require('./app/routes/file.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
