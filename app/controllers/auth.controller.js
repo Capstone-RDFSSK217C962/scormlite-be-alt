@@ -5,7 +5,7 @@ const { user: User, role: Role, refreshToken: RefreshToken } = db;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
-exports.signup = (req, res) => {
+exports.signUp = (req, res) => {
   const user = new User({
     username: req.body.username,
     firstname: req.body.firstname,
@@ -63,7 +63,7 @@ exports.signup = (req, res) => {
   });
 };
 
-exports.signin = (req, res) => {
+exports.signIn = (req, res) => {
   User.findOne({
     username: req.body.username
   })
