@@ -25,8 +25,8 @@ let upload = multer({ storage: storage });
 module.exports = (app) => {
 	var router = require('express').Router();
 
-	router.post('/upload', upload.single('file'),  files.uploadFile);
-	router.post('/delete', files.deleteFile);
+	router.post('/upload', upload.single('file'),  files.upload);
+	router.post('/delete', files.delete);
 
-	app.use('/api', router);
+	app.use('/api/file', router);
 };

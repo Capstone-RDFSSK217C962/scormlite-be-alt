@@ -3,7 +3,7 @@ let path = require('path');
 
 var PATH = 'files/';
 
-exports.deleteFile = (req, res, next) => {
+exports.delete = (req, res, next) => {
 	let fileId = req.body.id;
 	try {
 		fs.unlink(PATH + fileId, function (err) {
@@ -19,7 +19,7 @@ exports.deleteFile = (req, res, next) => {
 };
 
 
-exports.uploadFile =  (req, res, next) => {
+exports.upload =  (req, res, next) => {
 	let name = req.file.originalname || req.file.filename;
 	let url = req.protocol + 's://' + req.headers.host + '/' + req.file.filename;
 	let mimetype =
