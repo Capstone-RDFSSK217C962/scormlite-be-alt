@@ -42,7 +42,6 @@ module.exports = (mongoose) => {
 			desc: String,
 			duration: String,
 			code: String,
-			package_url: String,
 			published: Boolean,
 			module: {}
 		},

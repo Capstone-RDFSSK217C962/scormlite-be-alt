@@ -13,7 +13,6 @@ exports.create = (req, res) => {
 		desc: req.body.desc,
 		duration: req.body.duration,
 		code: req.body.code,
-		package_url: req.body.package_url,
 		published: req.body.published ? req.body.published : false,
 		module: {},
 		// {
