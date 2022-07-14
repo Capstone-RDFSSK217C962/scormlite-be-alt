@@ -1,7 +1,13 @@
 let fs = require('fs');
 let path = require('path');
 
-var PATH = 'files/';
+// local env
+// var PATH = 'files/';
+// prod env
+var PATH = 'https://scormlite-be.herokuapp.com/files/';
+
+// www.api.scormlite.tech/api/file/delete?file=0bc13abc582b0aef4d13007ef67b9876.png
+// http://localhost:3000/api/file/delete?file=5c174cc30cd904cc51c03688b0c5f6d7.png
 
 exports.delete = (req, res, next) => {
 	let fileId = req.body.id;
