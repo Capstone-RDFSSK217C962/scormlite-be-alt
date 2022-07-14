@@ -4,7 +4,7 @@ let path = require('path');
 // local env
 // var PATH = 'files/';
 // prod env
-var PATH = 'https://scormlite-be.herokuapp.com/files/';
+var PATH = 'files/';
 
 // www.api.scormlite.tech/api/file/delete?file=0bc13abc582b0aef4d13007ef67b9876.png
 // http://localhost:3000/api/file/delete?file=5c174cc30cd904cc51c03688b0c5f6d7.png
